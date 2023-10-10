@@ -17,3 +17,13 @@ class DemoView(APIView):
     permission_classes = [IsAuthenticated] 
     def get(self, request):
         return Response({'success':"You are authenticated"})
+
+class ProductView(APIView):
+    def get(self,request):
+        category= self.request.query_params.get('category_name')
+        if category:
+            queryset=Product.objects.filter(category__category_name= category)
+        else:
+            queryset=Product.objects.all()
+        serializers = ProductSerializers(queryset, many= True)
+        return Response({'count':len(serializers.data), 'data':serializers.data})

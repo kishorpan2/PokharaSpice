@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7zprq1tdfg1_skoejr$@=s1mndk#ctgiofkov+e5^7^e-w4#%i'
+SECRET_KEY = os.environ.get('SECRET KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')=='True'
 
 ALLOWED_HOSTS = ['*',]
 
@@ -31,6 +36,7 @@ ALLOWED_HOSTS = ['*',]
 # Application definition
 
 INSTALLED_APPS = [
+    'cart',
     'home',
     'products',
     'rest_framework',
@@ -129,4 +135,10 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD =os.environ.get('DEFAULT_AUTO_FIELD')
+EMAIL_BACKEND =os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST =os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS =os.environ.get('EMAIL_USE_TLS')
+EMAIL_PORT =os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER =os.environ.get('EMAIL_PORT')
+EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_PORT')

@@ -1,4 +1,5 @@
 from distutils.command.upload import upload
+from email.mime import image
 from django.db import models
 from django.utils.text import slugify
 
@@ -6,7 +7,7 @@ from django.utils.text import slugify
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, blank=True)
-
+    image = models.ImageField(upload_to='static/category', blank=True)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.category_name)
         super(Category, self).save(*args, **kwargs)
